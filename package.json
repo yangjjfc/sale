@@ -39,6 +39,7 @@
         "eslint-plugin-vue": "^5.0.0",
         "husky": "^3.1.0",
         "lint-staged": "^9.5.0",
+        "postcss-selector-namespace": "^3.0.1",
         "sass": "^1.23.7",
         "sass-loader": "^7.0.0",
         "stats-webpack-plugin": "^0.7.0",
