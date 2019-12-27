@@ -9,7 +9,7 @@ function resolve (dir) {
 
 module.exports = {
     lintOnSave: false,
-    productionSourceMap:false,
+    productionSourceMap: false,
     publicPath: process.env.NODE_ENV === 'production' ? '/sale/' : '//localhost:9081/',
     configureWebpack: {
         externals: {

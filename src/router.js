@@ -1,7 +1,6 @@
 import Router from 'vue-router';
 const myRouter = new Router({
     mode: 'history',
-    // base: process.env.BASE_URL,
     routes: [
         ...(window.EventBus.addRoute || [])
     ]
