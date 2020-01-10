@@ -1,13 +1,11 @@
 <template>
-  <section class="app-main" id="main-content">
-    <components :is="componentName"></components>
+  <section id="main-empty">
   </section>
 </template>
 <script>
 import Vue from 'vue';
-
-const _import = (file) => () => import(/* webpackChunkName: `[request][index]` */ `@/pages${file}/index.vue`); 
-/* eslint-elable */
+import { mapGetters, mapMutations } from 'vuex';
+const _import = (file) => () => import(/* webpackChunkName: `[request][index]` */ `@/pages${file}/index.vue`);
 
 let reverseComponentName = (str) => str.replace(/(\/|\.)/g, '');
 export default {
@@ -18,11 +16,15 @@ export default {
     };
   },
   watch: {
-    $route() {
+    $route(to, from) {
       this.initPermission();
     }
   },
+  computed: {
+    ...mapGetters(['buttons'])
+  },
   methods: {
+    ...mapMutations(['setComponentName', 'setAuth']),
     _getBtnAuth(no, permissions) {
       this.buttons && this.buttons.forEach(item => {
         if (item.parentFuncNo === no) {
@@ -37,6 +39,7 @@ export default {
         path = this.$route.meta.componentUrl;
       this._getBtnAuth(no, permissions);
       Vue.prototype.auth = permissions;
+      this.setAuth(permissions);
       console.log(permissions, '按钮权限');
       // 模块点击，直接用navPage组件
       if (this.$route.meta.leval === 2) {
@@ -51,7 +54,7 @@ export default {
       let async = _import(path);
       async().then(com => {
         Vue.component(name, com.default);
-        this.componentName = name;
+        this.setComponentName(name);
       }, errors => {
         this.componentName = this.$root.$options.components.pageError;
         this.$message.error('模块地址加载失败,地址：' + path + '，具体错误：' + errors);

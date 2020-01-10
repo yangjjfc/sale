@@ -10,7 +10,7 @@ function resolve (dir) {
 module.exports = {
     lintOnSave: false,
     productionSourceMap: false,
-    publicPath: process.env.NODE_ENV === 'production' ? '/sale/' : '//localhost:9081/',
+    publicPath: process.env.NODE_ENV === 'production' ? '//localhost:9005/' : '//localhost:9081/',
     configureWebpack: {
         externals: {
             'vue': 'Vue',
